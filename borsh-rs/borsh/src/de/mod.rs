@@ -19,12 +19,6 @@ pub trait BorshDeserialize: Sized {
     fn try_from_slice(v: &[u8]) -> io::Result<Self> {
         let mut v_mut = v;
         let result = Self::deserialize(&mut v_mut)?;
-        if !v_mut.is_empty() {
-            return Err(io::Error::new(
-                io::ErrorKind::InvalidData,
-                ERROR_NOT_ALL_BYTES_READ,
-            ));
-        }
         Ok(result)
     }
 
